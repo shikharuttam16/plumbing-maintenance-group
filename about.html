@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About Us - Plumbing Maintenance Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* RESET & VARIABLES */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+:root {
+    --primary: #0077CC;
+    --primary-dark: #005EA3;
+    --accent: #00A351;
+    --background: #F7F9FA;
+    --text-main: #1C1C1E;
+    --border-light: #E5E5E7;
+    --card-bg: #FFFFFF;
+}
+html, body {
+    background: var(--background);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+header { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); padding: 1rem 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+.header-container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+.logo-section img { display: block; max-width: 175px; }
+.main-nav { display: flex; gap: 1.4rem; }
+.main-nav a { text-decoration: none; color: var(--text-main); font-weight: 500; position: relative; }
+.main-nav a::after { content: ''; position: absolute; width: 0; height: 2px; background: var(--primary); left: 0; bottom: -4px; transition: width 0.3s ease; }
+.main-nav a:hover::after { width: 100%; }
+
+/* ACTIVE LINK */
+.main-nav a.active-link,
+.mobile-nav a.active-link {
+    color: var(--primary);
+    font-weight: 700;
+}
+.main-nav a.active-link::after {
+    width: 100%;
+}
+
+/* HAMBURGER */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background 0.3s ease; z-index: 99999; }
+.hamburger span { width: 26px; height: 3px; background: var(--text-main); border-radius: 2px; transition: all 0.3s ease; }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translateY(8px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-8px); }
+
+/* MOBILE NAV */
+.mobile-nav { position: fixed; top: 0; right: -100vw; height: 100vh; width: 100vw; background: rgba(0,119,204,0.95); backdrop-filter: blur(4px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; transition: right 0.35s ease; z-index: 999; }
+.mobile-nav a { color: white; font-size: 1.5rem; text-decoration: none; font-weight: 600; opacity: 0; transform: translateX(20px); transition: all 0.3s ease; }
+.mobile-nav.show { right: 0; }
+.mobile-nav.show a { opacity: 1; transform: translateX(0); }
+body.menu-open { position: fixed; width: 100%; overflow: hidden; }
+
+/* ABOUT PAGE */
+.about-section {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+    animation: fadeInUp 1s ease forwards;
+}
+.about-section h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+    font-weight: 800;
+}
+.about-section p.intro {
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+    color: #444;
+    text-align: center;
+}
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+}
+.about-text {
+    flex: 1 1 55%;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #555;
+    text-align: justify;
+    animation: fadeInLeft 1s ease forwards;
+}
+.about-image {
+    flex: 1 1 40%;
+    border-radius: 12px;
+    min-height: 300px;
+    animation: fadeInRight 1s ease forwards;
+}
+.about-image img { height: 100%; width: 100%; border-radius: 12px; }
+
+/* Animations */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+/* FOOTER */
+footer { background: var(--card-bg); padding: 2rem; border-top: 1px solid var(--border-light); font-size: 0.95rem; color: #555; margin-top: auto; }
+.footer-container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; }
+.footer-left, .footer-right { flex: 1 1 250px; }
+.footer-left { text-align: left; }
+.footer-right { text-align: right; }
+
+@media (max-width: 768px) {
+    .main-nav { display: none; }
+    .hamburger { display: flex; }
+    .about-content { flex-direction: column; }
+    .about-text, .about-image { flex: 1 1 100%; }
+    .footer-left, .footer-right { text-align: center; }
+    .footer-container { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="header-container">
+        <div class="logo-section">
+            <a href="./index.html"><img src="./logo.png" height="110" width="175" /></a>
+        </div>
+        <nav class="main-nav">
+            <a href="./index.html">Home</a>
+            <a href="./about.html">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+        <a href="./index.html">Home</a>
+        <a href="./about.html">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+</header>
+
+<!-- ABOUT US -->
+<main>
+    <section class="about-section">
+        <h1>About Us</h1>
+        <p class="intro">Delivering top-notch plumbing solutions with reliability, trust, and excellence.</p>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Plumbing Maintenance Group has been providing high-quality plumbing services for over a decade. We specialize in tank cleaning, tap repairs, pipe maintenance, and blockage removal — with a commitment to fast, reliable, and affordable service.</p>
+                <p>Our certified professionals are equipped with the latest tools and techniques to tackle any plumbing challenge. We value transparency, precision, and exceptional customer care, ensuring every project meets the highest standards.</p>
+                <p>With us, you're choosing a trusted partner dedicated to your comfort, safety, and satisfaction.</p>
+            </div>
+            <div class="about-image">
+                <img src="./aboutus.png" />
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer id="contact">
+    <div class="footer-container">
+        <div class="footer-left">
+            <p>© 2025 Plumbing Maintenance Group</p>
+            <p>123 Waterworks Lane, Mumbai, Maharashtra, India</p>
+        </div>
+        <div class="footer-right">
+            <p>Contact us: +91 98765 43210</p>
+            <p>Email: info@plumbergroup.in</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Mobile menu toggle
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('show');
+    hamburger.classList.toggle('active');
+    document.body.classList.toggle('menu-open', mobileNav.classList.contains('show'));
+});
+mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileNav.classList.remove('show');
+        hamburger.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    });
+});
+
+// Active link highlight
+function setActiveLink(clickedLink) {
+    document.querySelectorAll('.main-nav a, .mobile-nav a').forEach(link => {
+        link.classList.remove('active-link');
+    });
+    const targetHref = clickedLink.getAttribute('href');
+    document.querySelectorAll(`.main-nav a[href="${targetHref}"], .mobile-nav a[href="${targetHref}"]`)
+        .forEach(link => link.classList.add('active-link'));
+}
+
+// Handle clicks for active state
+document.querySelectorAll('.main-nav a, .mobile-nav a').forEach(link => {
+    link.addEventListener('click', function() {
+        setActiveLink(this);
+    });
+});
+
+// Auto-set active link on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll(`.main-nav a[href$="${currentPath}"], .mobile-nav a[href$="${currentPath}"]`)
+        .forEach(link => link.classList.add('active-link'));
+});
+</script>
+</body>
+</html>

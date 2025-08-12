@@ -31,7 +31,7 @@ html, body {
     display: flex;
     flex-direction: column;
     line-height: 1.6;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
 /* HEADER */
@@ -69,6 +69,16 @@ header {
 }
 .main-nav a:hover::after { width: 100%; }
 
+/* ACTIVE LINK */
+.main-nav a.active-link,
+.mobile-nav a.active-link {
+    color: var(--primary);
+    font-weight: 700;
+}
+.main-nav a.active-link::after {
+    width: 100%;
+}
+
 /* HAMBURGER */
 .hamburger {
     display: none;
@@ -96,7 +106,7 @@ header {
 .mobile-nav {
     position: fixed;
     top: 0;
-    right: -100vw; /* fully hidden off screen */
+    right: -100vw;
     height: 100vh;
     width: 100vw;
     background: rgba(0,119,204,0.95);
@@ -257,18 +267,17 @@ footer {
 <header>
     <div class="header-container">
         <div class="logo-section">
-            <a href="./index.html"><img src="./logo.png" height="110" width="175" />
-            </a>
+            <a href="./index.html"><img src="./logo.png" height="110" width="175" /></a>
         </div>
         <nav class="main-nav">
-            <a href="./index.html">Home</a>
-            <a href="#about">About</a>
+            <a href="./index.html" class="active-link">Home</a>
+            <a href="./about.html">About</a>
             <a href="#contact">Contact</a>
         </nav>
         <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
     </div>
     <div class="mobile-nav" id="mobileNav">
-        <a href="./index.html">Home</a>
+        <a href="./index.html" class="active-link">Home</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
     </div>
@@ -309,7 +318,6 @@ footer {
 </div>
 </section>
 
-
 <section class="features" id="about">
     <div class="feature"><span>🔧</span>Certified Plumbers</div>
     <div class="feature"><span>💰</span>Affordable Prices</div>
@@ -347,6 +355,7 @@ const backBtn = document.getElementById('backBtn');
 let bookingData = {};
 let selectedService = "";
 
+// Booking form navigation
 step1.addEventListener('submit', e => {
     e.preventDefault();
     if (!step1.checkValidity()) return step1.reportValidity();
@@ -375,12 +384,10 @@ step1.addEventListener('submit', e => {
     step1.style.display = "none";
     step2.style.display = "flex";
 });
-
 backBtn.addEventListener('click', () => {
     step2.style.display = "none";
     step1.style.display = "flex";
 });
-
 step2.addEventListener('submit', e => {
     e.preventDefault();
     if (selectedService !== "others") {
@@ -395,7 +402,6 @@ step2.addEventListener('submit', e => {
     confirmation.textContent = `✅ Thank you, ${bookingData.name}! Booking for ${formatServiceName(selectedService)} received. Total: ₹${bookingData.totalPrice}. We'll contact you at ${bookingData.phone}.`;
     step2.style.display = "none";
 });
-
 function updatePrice() {
     const qty = +document.getElementById('quantity').value || 1;
     priceDisplay.textContent = `Estimated Price: ₹${(qty * servicePrices[selectedService]).toFixed(2)}`;
@@ -411,6 +417,7 @@ function formatServiceName(key) {
     return map[key] || "Service";
 }
 
+// Mobile menu toggle
 const hamburger = document.getElementById('hamburger');
 const mobileNav = document.getElementById('mobileNav');
 hamburger.addEventListener('click', () => {
@@ -423,6 +430,22 @@ mobileNav.querySelectorAll('a').forEach(link => {
         mobileNav.classList.remove('show');
         hamburger.classList.remove('active');
         document.body.classList.remove('menu-open');
+    });
+});
+
+// Active link highlight for desktop & mobile
+function setActiveLink(clickedLink) {
+    document.querySelectorAll('.main-nav a, .mobile-nav a').forEach(link => {
+        link.classList.remove('active-link');
+    });
+    // Find matching href in both navs
+    const targetHref = clickedLink.getAttribute('href');
+    document.querySelectorAll(`.main-nav a[href="${targetHref}"], .mobile-nav a[href="${targetHref}"]`)
+        .forEach(link => link.classList.add('active-link'));
+}
+document.querySelectorAll('.main-nav a, .mobile-nav a').forEach(link => {
+    link.addEventListener('click', function() {
+        setActiveLink(this);
     });
 });
 </script>
